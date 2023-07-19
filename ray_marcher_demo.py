@@ -320,7 +320,11 @@ if __name__ == '__main__':
                 elif event.key == pygame.K_p:
                     start_playback()
                 elif event.key == pygame.K_c:
-                    pygame.image.save(window, 'screenshot.png')
+                    glPixelStorei(GL_PACK_ALIGNMENT, 1)
+                    data = glReadPixels(0, 0, window.get_width(), window.get_height(), GL_RGB, GL_UNSIGNED_BYTE)
+                    image = Image.frombytes("RGB", (window.get_width(), window.get_height()), data)
+                    image = ImageOps.flip(image)
+                    image.save('screenshot.png', 'PNG')
                 elif event.key == pygame.K_ESCAPE:
                     sys.exit(0)
 
@@ -409,7 +413,7 @@ if __name__ == '__main__':
                 data = glReadPixels(0, 0, window.get_width(), window.get_height(), GL_RGB, GL_UNSIGNED_BYTE)
                 image = Image.frombytes("RGB", (window.get_width(), window.get_height()), data)
                 image = ImageOps.flip(image)
-image.save('playback/frame' + ix_str + '.png', 'PNG')
+                image.save('playback/frame' + ix_str + '.png', 'PNG')
             if playback_ix >= playback.shape[0]:
                 playback = None
                 break

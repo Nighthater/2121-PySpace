@@ -61,15 +61,15 @@ class Camera:
 
 		# Represents the maximum RGB color shift that can result from glow.
 		# Recommended Range: All values between -1.0 and 1.0
-		self.params['GLOW_COLOR_DELTA'] = (-0.2, 0.5, -0.2)
+		self.params['GLOW_COLOR_DELTA'] = (0.53, 0.15, 0.64)
 
 		# The sharpness of the glow.
 		# Recommended Range: 1.0 to 100.0
-		self.params['GLOW_SHARPNESS'] = 4.0
+		self.params['GLOW_SHARPNESS'] = 90.0
 
 		# Color of the sunlight in RGB format.
 		# Recommended Range: All values between 0.0 and 1.0
-		self.params['LIGHT_COLOR'] = (1.0, 0.9, 0.6)
+		self.params['LIGHT_COLOR'] = (1.0, 1.0, 1.0)
 
 		# Direction of the sunlight.
 		# NOTE: This must be a normalized quantity (magnitude = 1.0)

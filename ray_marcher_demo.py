@@ -18,15 +18,16 @@ from pygame.locals import *
 from PIL import Image
 from PIL import ImageOps
 
+import time
 
 import os
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 #Size of the window and rendering
-win_size = (1280, 720)
-
+#win_size = (1280, 720)
+win_size = (2560, 1440)
 #Maximum frames per second
-max_fps = 48
+max_fps = 30
 
 #Forces an 'up' orientation when True, free-camera when False
 gimbal_lock = False
@@ -73,7 +74,7 @@ look_y = 0.0
 #
 # Set initial values of '0' through '6' below
 #----------------------------------------------
-keyvars = [1.0, 0.5, 1.0, 2.0, 1.0, 6.0]
+keyvars = [1.0, 0.5, 5.0, 2.0, 1.0, 6.0]
 
 #----------------------------------------------
 #            Fractal Examples Below
@@ -97,12 +98,12 @@ def infinite_spheres2():
 def mandelbox2():
     obj = Object()
     obj.add(OrbitInitInf())
-    for _ in range(16):
+    for _ in range(32):
         obj.add(FoldBox('0'))
         obj.add(FoldSphere('1', '2'))
         obj.add(FoldScaleOrigin('3'))
         obj.add(OrbitMinAbs('4'))
-    obj.add(Box('5', color='orbit'))
+    obj.add(Box('5', color=(0.50,0.0,1.0)))
     return obj
 
 def butterweed_hills():
@@ -276,7 +277,7 @@ if __name__ == '__main__':
     #======================================================
     camera = Camera()
     camera['ANTIALIASING_SAMPLES'] = 1
-    camera['AMBIENT_OCCLUSION_STRENGTH'] = 0.01
+    camera['AMBIENT_OCCLUSION_STRENGTH'] = 0.00
     #======================================================
 
     shader = Shader(obj_render)
@@ -324,6 +325,11 @@ if __name__ == '__main__':
         prevMat = playback[0]
 
     clock = pygame.time.Clock()
+    
+    keyacc = [0.0, 0.0, 0.0]
+    keyvel = [0.0, 0.0, 0.0]
+    starttime = time.time()
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -362,12 +368,28 @@ if __name__ == '__main__':
 
         all_keys = pygame.key.get_pressed()
 
+        
+        
         rate = 0.01
+        accrate = 0.001
         if all_keys[pygame.K_LSHIFT]:   rate *= 0.1
+        if all_keys[pygame.K_LSHIFT]:   accrate *= 0.1
         elif all_keys[pygame.K_RSHIFT]: rate *= 10.0
-
-        if all_keys[pygame.K_INSERT]:   keyvars[0] += rate; print(keyvars)
-        if all_keys[pygame.K_DELETE]:   keyvars[0] -= rate; print(keyvars)
+        elif all_keys[pygame.K_RSHIFT]: accrate *= 10.0
+        
+        if all_keys[pygame.K_INSERT]:   keyacc[0] += accrate; print(keyvars)
+        if all_keys[pygame.K_DELETE]:   keyacc[0] -= accrate; print(keyvars)
+        
+        # FunkyStuff happens here
+        localtime = time.time() - starttime
+        keyvars[0] += math.sin(localtime / 7) * 0.0001
+        keyvars[1] += math.sin(localtime / 5) * 0.01
+        keyvars[2] += math.sin(localtime / 2) * 0.01
+        keyvars[3] += math.sin(localtime / 8) * 0.0001
+        print(keyvars)
+        
+        #if all_keys[pygame.K_INSERT]:   keyvars[0] += rate; print(keyvars)
+        #if all_keys[pygame.K_DELETE]:   keyvars[0] -= rate; print(keyvars)
         if all_keys[pygame.K_HOME]:     keyvars[1] += rate; print(keyvars)
         if all_keys[pygame.K_END]:      keyvars[1] -= rate; print(keyvars)
         if all_keys[pygame.K_PAGEUP]:   keyvars[2] += rate; print(keyvars)

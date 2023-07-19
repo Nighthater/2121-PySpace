@@ -22,7 +22,7 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 win_size = (1280, 720)
 
 #Maximum frames per second
-max_fps = 30
+max_fps = 48
 
 #Forces an 'up' orientation when True, free-camera when False
 gimbal_lock = False
@@ -405,7 +405,11 @@ if __name__ == '__main__':
 		else:
 			if playback_ix >= 0:
 				ix_str = '%04d' % playback_ix
-				pygame.image.save(window, 'playback/frame' + ix_str + '.png')
+				glPixelStorei(GL_PACK_ALIGNMENT, 1)
+                data = glReadPixels(0, 0, window.get_width(), window.get_height(), GL_RGB, GL_UNSIGNED_BYTE)
+                image = Image.frombytes("RGB", (window.get_width(), window.get_height()), data)
+                image = ImageOps.flip(image)
+image.save('playback/frame' + ix_str + '.png', 'PNG')
 			if playback_ix >= playback.shape[0]:
 				playback = None
 				break

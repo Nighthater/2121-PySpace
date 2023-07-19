@@ -15,6 +15,10 @@ from ctypes import *
 from OpenGL.GL import *
 from pygame.locals import *
 
+from PIL import Image
+from PIL import ImageOps
+
+
 import os
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
@@ -69,7 +73,7 @@ look_y = 0.0
 #
 # Set initial values of '0' through '6' below
 #----------------------------------------------
-keyvars = [1.5, 1.5, 2.0, 1.0, 1.0, 1.0]
+keyvars = [1.0, 0.5, 1.0, 2.0, 1.0, 6.0]
 
 #----------------------------------------------
 #            Fractal Examples Below
@@ -80,6 +84,25 @@ def infinite_spheres():
     obj.add(FoldRepeatY(2.0))
     obj.add(FoldRepeatZ(2.0))
     obj.add(Sphere(0.5, (1.0, 1.0, 1.0), color=(0.9,0.9,0.5)))
+    return obj
+    
+def infinite_spheres2():
+    obj = Object()
+    obj.add(FoldRepeatX('0'))
+    obj.add(FoldRepeatY('1'))
+    obj.add(FoldRepeatZ('2'))
+    obj.add(Sphere(0.5, ('3', '4', '5'), color=(0.9,0.9,0.5)))
+    return obj
+    
+def mandelbox2():
+    obj = Object()
+    obj.add(OrbitInitInf())
+    for _ in range(16):
+        obj.add(FoldBox('0'))
+        obj.add(FoldSphere('1', '2'))
+        obj.add(FoldScaleOrigin('3'))
+        obj.add(OrbitMinAbs('4'))
+    obj.add(Box('5', color='orbit'))
     return obj
 
 def butterweed_hills():
@@ -244,7 +267,7 @@ if __name__ == '__main__':
     #======================================================
     #               Change the fractal here
     #======================================================
-    obj_render = tree_planet()
+    obj_render = mandelbox2()
     #======================================================
 
     #======================================================

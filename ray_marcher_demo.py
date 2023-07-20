@@ -74,69 +74,39 @@ look_y = 0.0
 #
 # Set initial values of '0' through '6' below
 #----------------------------------------------
-keyvars = [1.0, 0.5, 5.0, 2.0, 1.0, 6.0]
+keyvars = [1.0, 0.5, 5.0, 2.0, 1.57, 0.5]
 
 #----------------------------------------------
 #            Fractal Examples Below
 #----------------------------------------------
 def infinite_spheres():
     obj = Object()
-    obj.add(FoldRepeatX(2.0))
-    obj.add(FoldRepeatY(2.0))
-    obj.add(FoldRepeatZ(2.0))
-    obj.add(Sphere(0.5, (1.0, 1.0, 1.0), color=(0.9,0.9,0.5)))
-    return obj
-    
-def infinite_spheres2():
-    obj = Object()
     obj.add(FoldRepeatX('0'))
     obj.add(FoldRepeatY('1'))
     obj.add(FoldRepeatZ('2'))
-    obj.add(Sphere(0.5, ('3', '4', '5'), color=(0.9,0.9,0.5)))
+    obj.add(Sphere(0.5, (1.0, 1.0, 1.0), color=(0.5,0.1,0.75)))
     return obj
     
-def mandelbox2():
-    obj = Object()
-    obj.add(OrbitInitInf())
-    for _ in range(32):
-        obj.add(FoldBox('0'))
-        obj.add(FoldSphere('1', '2'))
-        obj.add(FoldScaleOrigin('3'))
-        obj.add(OrbitMinAbs('4'))
-    obj.add(Box('5', color=(0.50,0.0,1.0)))
-    return obj
-
-def butterweed_hills():
-    obj = Object()
-    obj.add(OrbitInitZero())
-    for _ in range(30):
-        obj.add(FoldAbs())
-        obj.add(FoldScaleTranslate(1.5, (-1.0,-0.5,-0.2)))
-        obj.add(OrbitSum((0.5, 0.03, 0.0)))
-        obj.add(FoldRotateX(3.61))
-        obj.add(FoldRotateY(2.03))
-    obj.add(Sphere(1.0, color='orbit'))
-    return obj
-
 def mandelbox():
     obj = Object()
     obj.add(OrbitInitInf())
-    for _ in range(16):
+    for _ in range(32):
         obj.add(FoldBox(1.0))
-        obj.add(FoldSphere(0.5, 1.0))
-        obj.add(FoldScaleOrigin(2.0))
+        obj.add(FoldSphere('1', '2'))
+        obj.add(FoldScaleOrigin('3'))
         obj.add(OrbitMinAbs(1.0))
-    obj.add(Box(6.0, color='orbit'))
+    obj.add(Box(6.0, color=(0.50,0.0,1.0)))
     return obj
+
 
 def mausoleum():
     obj = Object()
     obj.add(OrbitInitZero())
-    for _ in range(8):
-        obj.add(FoldBox(0.34))
+    for _ in range(16):
+        obj.add(FoldBox(0.5))
         obj.add(FoldMenger())
-        obj.add(FoldScaleTranslate(3.28, (-5.27,-0.34,0.0)))
-        obj.add(FoldRotateX(math.pi/2))
+        obj.add(FoldScaleTranslate('2', (-5.27,-0.34,'1')))
+        obj.add(FoldRotateX( math.pi / 2 ))
         obj.add(OrbitMax((0.42,0.38,0.19)))
     obj.add(Box(2.0, color='orbit'))
     return obj
@@ -146,7 +116,7 @@ def menger():
     for _ in range(8):
         obj.add(FoldAbs())
         obj.add(FoldMenger())
-        obj.add(FoldScaleTranslate(3.0, (-2,-2,0)))
+        obj.add(FoldScaleTranslate('3', (-2,-2,'1')))
         obj.add(FoldPlane((0,0,-1), -1))
     obj.add(Box(2.0, color=(.2,.5,1)))
     return obj
@@ -167,10 +137,10 @@ def tree_planet():
 def sierpinski_tetrahedron():
     obj = Object()
     obj.add(OrbitInitZero())
-    for _ in range(9):
+    for _ in range(50):
         obj.add(FoldSierpinski())
         obj.add(FoldScaleTranslate(2, -1))
-    obj.add(Tetrahedron(color=(0.8,0.8,0.5)))
+    obj.add(Tetrahedron(color=(0.5,0.2,0.7)))
     return obj
 
 def snow_stadium():
@@ -181,7 +151,7 @@ def snow_stadium():
         obj.add(FoldSierpinski())
         obj.add(FoldRotateX(0.15))
         obj.add(FoldMenger())
-        obj.add(FoldScaleTranslate(1.57, (-6.61, -4.0, -2.42)))
+        obj.add(FoldScaleTranslate('4', (-6.61, -4.0, -2.42)))
         obj.add(OrbitMinAbs(1.0))
     obj.add(Box(4.8, color='orbit'))
     return obj
@@ -271,15 +241,14 @@ if __name__ == '__main__':
     obj_render = None
     
     menu = {
-        '1': ('Infinite Spheres', infinite_spheres),
-        '2': ('Butterweed Hills', butterweed_hills),
-        '3': ('Mandelbox', mandelbox),
-        '4': ('Mausoleum', mausoleum),
-        '5': ('Menger Sponge', menger),
-        '6': ('Tree Planet', tree_planet),
-        '7': ('Sierpinski Tetrahedron', sierpinski_tetrahedron),
-        '8': ('Snow Stadium', snow_stadium),
-        '9': ('Example Fractal', test_fractal)
+        '1': ('Mandelbox', mandelbox),
+        '2': ('Mausoleum', mausoleum),
+        '3': ('Infinite Spheres', infinite_spheres),
+        '4': ('Menger Sponge', menger),
+        '5': ('Tree Planet', tree_planet),
+        '6': ('Sierpinski Tetrahedron', sierpinski_tetrahedron),
+        '7': ('Snow Stadium', snow_stadium),
+        '8': ('Example Fractal', test_fractal)
     }
     
     font_size = 60
@@ -363,8 +332,6 @@ if __name__ == '__main__':
 
     clock = pygame.time.Clock()
     
-    keyacc = [0.0, 0.0, 0.0]
-    keyvel = [0.0, 0.0, 0.0]
     starttime = time.time()
     
     while True:
@@ -405,28 +372,22 @@ if __name__ == '__main__':
 
         all_keys = pygame.key.get_pressed()
 
-        
-        
         rate = 0.01
-        accrate = 0.001
         if all_keys[pygame.K_LSHIFT]:   rate *= 0.1
-        if all_keys[pygame.K_LSHIFT]:   accrate *= 0.1
         elif all_keys[pygame.K_RSHIFT]: rate *= 10.0
-        elif all_keys[pygame.K_RSHIFT]: accrate *= 10.0
-        
-        if all_keys[pygame.K_INSERT]:   keyacc[0] += accrate; print(keyvars)
-        if all_keys[pygame.K_DELETE]:   keyacc[0] -= accrate; print(keyvars)
-        
-        # FunkyStuff happens here
+
+        # Automated FunkyStuff happens here
         localtime = time.time() - starttime
-        keyvars[0] += math.sin(localtime / 7) * 0.0001
+        keyvars[0] += math.sin(localtime / 7) * 0.0025
         keyvars[1] += math.sin(localtime / 5) * 0.01
         keyvars[2] += math.sin(localtime / 2) * 0.01
-        keyvars[3] += math.sin(localtime / 8) * 0.0001
+        keyvars[3] += math.sin(localtime / 8) * 0.001
+        keyvars[4] += math.sin(localtime / 8) * 0.01
+        keyvars[5] += math.sin(localtime / 11) * 0.01
         print(keyvars)
         
-        #if all_keys[pygame.K_INSERT]:   keyvars[0] += rate; print(keyvars)
-        #if all_keys[pygame.K_DELETE]:   keyvars[0] -= rate; print(keyvars)
+        if all_keys[pygame.K_INSERT]:   keyvars[0] += rate; print(keyvars)
+        if all_keys[pygame.K_DELETE]:   keyvars[0] -= rate; print(keyvars)
         if all_keys[pygame.K_HOME]:     keyvars[1] += rate; print(keyvars)
         if all_keys[pygame.K_END]:      keyvars[1] -= rate; print(keyvars)
         if all_keys[pygame.K_PAGEUP]:   keyvars[2] += rate; print(keyvars)
@@ -470,11 +431,15 @@ if __name__ == '__main__':
                 acc[0] -= speed_accel / max_fps
             if all_keys[pygame.K_d]:
                 acc[0] += speed_accel / max_fps
+            if all_keys[pygame.K_r]:
+                acc[1] += speed_accel / max_fps
+            if all_keys[pygame.K_f]:
+                acc[1] -= speed_accel / max_fps
             if all_keys[pygame.K_w]:
                 acc[2] -= speed_accel / max_fps
             if all_keys[pygame.K_s]:
                 acc[2] += speed_accel / max_fps
-
+            
             if np.dot(acc, acc) == 0.0:
                 vel *= speed_decel # TODO
             else:

@@ -24,8 +24,8 @@ import os
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 #Size of the window and rendering
-#win_size = (1280, 720)
-win_size = (2560, 1440)
+win_size = (1280, 720)
+#win_size = (2560, 1440)
 #Maximum frames per second
 max_fps = 30
 
@@ -266,9 +266,46 @@ if __name__ == '__main__':
     center_mouse()
 
     #======================================================
-    #               Change the fractal here
+    #               Menu Screen
     #======================================================
-    obj_render = mandelbox2()
+    obj_render = None
+    
+    menu = {
+        '1': ('Infinite Spheres', infinite_spheres),
+        '2': ('Butterweed Hills', butterweed_hills),
+        '3': ('Mandelbox', mandelbox),
+        '4': ('Mausoleum', mausoleum),
+        '5': ('Menger Sponge', menger),
+        '6': ('Tree Planet', tree_planet),
+        '7': ('Sierpinski Tetrahedron', sierpinski_tetrahedron),
+        '8': ('Snow Stadium', snow_stadium),
+        '9': ('Example Fractal', test_fractal)
+    }
+    
+    font_size = 60
+    my_font = pygame.font.Font(None, font_size) # None gets default font
+
+    widest_title = max([my_font.size(title[0]) for title in menu.values()])[0]
+    menu_left_margin = (win_size[0] - widest_title) / 2
+
+    i = 2
+    for k, v in menu.items():
+        text = k + " : " + v[0]
+        text_surface = my_font.render(text, True, ( 255, 255, 255 ))
+        window.blit(text_surface, ( menu_left_margin, i * font_size ))
+        i += 1
+    text_surface = my_font.render('Fractal Menu', True, ( 255, 255, 255 ))
+    window.blit(text_surface, ( (win_size[0] - text_surface.get_width()) / 2, 60 ))
+    pygame.display.flip()
+
+    while True:
+        # sleep until a key is pressed
+        event = pygame.event.wait()
+        if event.type == pygame.QUIT: sys.exit(0)
+        if event.type == pygame.KEYDOWN and event.unicode in '123456789':
+            obj_render = menu[event.unicode][1]()
+            break
+    window = pygame.display.set_mode(win_size, OPENGL | DOUBLEBUF)
     #======================================================
 
     #======================================================
@@ -482,4 +519,4 @@ if __name__ == '__main__':
         pygame.display.flip()
         clock.tick(max_fps)
         frame_num += 1
-        print(clock.get_fps())
+        

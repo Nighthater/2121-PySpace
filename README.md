@@ -25,7 +25,7 @@ Press a Number between 1 and 8 to select a Fractal to view
 | A & D | Truck |
 | R & F | Pedestal |
 | Mouse | Pan & Tilt |
-| Space |Record Movement|
+| Space | Start/Stop Recording Camera Path|
 | P | Playback and Render Recorded Camera Path |
 | C | Screenshot |
 | Esc | End Program |
@@ -45,6 +45,12 @@ The Fractals you can change with the keyvars are already animated.
 |Numpad 9 & Numpad 6| Change Keyvar 5|
 |Left Shift| Decrase Change by 10|
 |Right Shift| Increase Change by 10|
+
+## Render
+
+- After Recording a Camera Path and Rendering it, all Images are placed in the playback folder.  
+- The First two Images are currently not usable.  
+- When Rendering a new set of images the previous ones get overwritten.  
 
 ## Videos
 Overview: https://youtu.be/svLzmFuSBhk

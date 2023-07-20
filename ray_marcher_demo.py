@@ -26,6 +26,8 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 #Size of the window and rendering
 win_size = (1280, 720)
 #win_size = (2560, 1440)
+#win_size = (3840, 2160)
+
 #Maximum frames per second
 max_fps = 30
 
@@ -226,7 +228,7 @@ def center_mouse():
 # can import the image sequence to editing software
 # to convert it to a video.
 #
-#    You can press 's' anytime for a screenshot.
+#    You can press 'c' anytime for a screenshot.
 #---------------------------------------------------
 
 if __name__ == '__main__':
@@ -339,7 +341,7 @@ if __name__ == '__main__':
             if event.type == pygame.QUIT:
                 sys.exit(0)
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_r:
+                if event.key == pygame.K_SPACE:
                     if recording is None:
                         print("Recording...")
                         recording = []
@@ -447,8 +449,6 @@ if __name__ == '__main__':
                 vel_ratio = min(max_velocity, de) / (np.linalg.norm(vel) + 1e-12)
                 if vel_ratio < 1.0:
                     vel *= vel_ratio
-            if all_keys[pygame.K_SPACE]:
-                vel *= 10.0
 
             if recording is not None:
                 recording.append(np.copy(mat))

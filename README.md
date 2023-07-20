@@ -2,9 +2,7 @@
 GLSL Fractal Ray Marcher in Python.  
 Forked from https://github.com/HackerPoet/PySpace
 
-
-
-## Installation
+## First Installation
 - Get Python 3  
 - [Download the Repository](https://github.com/Nighthater/2121-PySpace/archive/refs/heads/master.zip)
 - Start a Terminal in the Folder you just unzipped
@@ -16,17 +14,20 @@ pip install -r requirements.txt
 
 ## Usage
 
-Launch Run.bat  
+- Launch Run.bat  
 
-Press a Number between 1 and 8 to select a Fractal to view  
+- Press a Number between 1 and 8 to select a Fractal to view.  
+##### NOTE: You can only select the Fractal at startup.
+
+- Usable Keys are listed below:  
 
 | Keys | Action|
 |--|--|
 | W & S | Dolly |
 | A & D | Truck |
 | R & F | Pedestal |
-| Mouse | Pan & Tilt |
-| Space | Start/Stop Recording Camera Path|
+| Mouse | Pan & Tilt (& Rotation)|
+| Space | Start/Stop Recording Camera Path |
 | P | Playback and Render Recorded Camera Path |
 | C | Screenshot |
 | Esc | End Program |

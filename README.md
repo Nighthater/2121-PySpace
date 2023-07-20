@@ -7,7 +7,8 @@ Forked from https://github.com/HackerPoet/PySpace
 ## Installation
 - Get Python 3  
 - [Download the Repository](https://github.com/Nighthater/2121-PySpace/archive/refs/heads/master.zip)
-- Start a Terminal in the Folder you just unzipped  
+- Start a Terminal in the Folder you just unzipped
+- Windows: Right click -> Open in Terminal
 ```bash
 pip install -r requirements.txt
 ```

@@ -100,7 +100,7 @@ def infinite_spheres():
 def mandelbox():
     obj = Object()
     obj.add(OrbitInitInf())
-    for _ in range(32):
+    for _ in range(4):
         obj.add(FoldBox(1.0))
         obj.add(FoldSphere('1', '2'))
         obj.add(FoldScaleOrigin('3'))
@@ -112,7 +112,7 @@ def mandelbox():
 def mausoleum():
     obj = Object()
     obj.add(OrbitInitZero())
-    for _ in range(16):
+    for _ in range(4):
         obj.add(FoldBox(0.5))
         obj.add(FoldMenger())
         obj.add(FoldScaleTranslate('2', (-5.27,-0.34,'1')))

@@ -6,7 +6,7 @@ class Camera:
 		# Number of additional samples on each axis to average and improve image quality.
 		# NOTE: This will slow down rendering quadratically.
 		# Recommended Range: 1 to 8 (integer)
-		self.params['ANTIALIASING_SAMPLES'] = 1
+		self.params['ANTIALIASING_SAMPLES'] = 4
 
 		# The strength of the ambient occlusion.
 		# Recommended Range: 0.0 to 0.05
@@ -24,7 +24,7 @@ class Camera:
 		# The strength of the depth of field effect.
 		# NOTE: ANTIALIASING_SAMPLES must be larger than 1 to use depth of field effects.
 		# Recommended Range: 0.0 to 20.0
-		self.params['DEPTH_OF_FIELD_STRENGTH'] = 0.0
+		self.params['DEPTH_OF_FIELD_STRENGTH'] = 5.0
 
 		# The distance from the camera where objects will appear in focus.
 		# NOTE: ANTIALIASING_SAMPLES must be larger than 1 to use depth of field effects.
@@ -131,13 +131,13 @@ class Camera:
 
 		# How sharp the shadows should appear.
 		# Recommended Range: 1.0 to 100.0
-		self.params['SHADOW_SHARPNESS'] = 16.0
+		self.params['SHADOW_SHARPNESS'] = 95.0
 
 		# Used to determine how sharp specular reflections are.
 		# NOTE: This is the 'shininess' parameter in the phong illumination model.
 		# NOTE: To disable specular highlights, use the value 0.
 		# Recommended Range: 0 to 1000 (integer)
-		self.params['SPECULAR_HIGHLIGHT'] = 40
+		self.params['SPECULAR_HIGHLIGHT'] = 0
 
 		# Determines if the sun should be drawn in the sky.
 		self.params['SUN_ENABLED'] = True
@@ -145,7 +145,7 @@ class Camera:
 		# Size of the sun to draw in the sky.
 		# NOTE: This only takes effect when SUN_ENABLED is enabled.
 		# Recommended Range: 0.0001 to 0.05
-		self.params['SUN_SIZE'] = 0.005
+		self.params['SUN_SIZE'] = 0.0005
 
 		# How sharp the sun should appear in the sky.
 		# NOTE: This only takes effect when SUN_ENABLED is enabled.

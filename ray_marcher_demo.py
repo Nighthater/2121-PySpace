@@ -13,6 +13,8 @@ from pyspace.camera import Camera
 
 from ctypes import *
 from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
 from pygame.locals import *
 
 from PIL import Image
@@ -27,6 +29,9 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 win_size = (1280, 720)
 #win_size = (2560, 1440)
 #win_size = (3840, 2160)
+
+render_width = 3840
+render_height = 2160
 
 #Maximum frames per second
 max_fps = 30
@@ -236,6 +241,32 @@ if __name__ == '__main__':
     window = pygame.display.set_mode(win_size, OPENGL | DOUBLEBUF)
     pygame.mouse.set_visible(False)
     center_mouse()
+    
+    # ADDED CODE
+    def create_framebuffer(width, height):
+        # Create a framebuffer object
+        fbo = glGenFramebuffers(1)
+        glBindFramebuffer(GL_FRAMEBUFFER, fbo)
+    
+        # Create a texture to attach to the framebuffer
+        texture = glGenTextures(1)
+        glBindTexture(GL_TEXTURE_2D, texture)
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, None)
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0)
+    
+        # Create a renderbuffer for depth and stencil attachments (optional, but recommended)
+        rbo = glGenRenderbuffers(1)
+        glBindRenderbuffer(GL_RENDERBUFFER, rbo)
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height)
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo)
+    
+        # Check framebuffer status
+        if glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE:
+            print("Framebuffer is not complete!")
+            return None
+    
+        glBindFramebuffer(GL_FRAMEBUFFER, 0)  # Unbind the framebuffer
+        return fbo
 
     #======================================================
     #               Menu Screen
@@ -484,4 +515,20 @@ if __name__ == '__main__':
         pygame.display.flip()
         clock.tick(max_fps)
         frame_num += 1
-        
+
+    # ADDED CODE
+    screenshot_fbo = create_framebuffer(screenshot_width, screenshot_height)
+    if screenshot_fbo:
+        glBindFramebuffer(GL_FRAMEBUFFER, screenshot_fbo)
+    
+        # Your OpenGL rendering code here (render the scene to the off-screen framebuffer)
+    
+        glBindFramebuffer(GL_FRAMEBUFFER, 0)  # Unbind the framebuffer
+    
+        # Capture the framebuffer's content and save it as a screenshot
+        glPixelStorei(GL_PACK_ALIGNMENT, 1)
+        data = glReadPixels(0, 0, render_width, render_height, GL_RGB, GL_UNSIGNED_BYTE)
+    
+        image = Image.frombytes("RGB", (screenshot_width, screenshot_height), data)
+        image = image.transpose(Image.FLIP_TOP_BOTTOM)  # Flip the image vertically to get the correct orientation
+        image.save('screenshot.png', 'PNG')

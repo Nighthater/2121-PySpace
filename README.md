@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 # Usage
 
-There are two batchfiles to use. `Run Recorder.bat` and `Run Renderer.bat`. They are functionally the Same program, just running in different screen resolutions.
+There are two batchfiles to use; `Run Recorder.bat` and `Run Renderer.bat`. They are functionally the same program, just running in different screen resolutions.
 
 | Keys | Action|
 |--|--|
@@ -50,17 +50,17 @@ The Fractals you can change with the keyvars are already animated.
 - Press a Number between 1 and 8 to select a Fractal to view.  
 ##### NOTE: You can only select the Fractal at startup.
 
-- Position you camera however you want, press `SPACE` to record your camera movement and `SPACE` to stop recording
-##### NOTE: Only one Recording at a time will currently be recorded! More to that below.
+- Position you camera however you want, press `SPACE` to record your camera movement and `SPACE` to stop recording.
+##### NOTE: Only one Recording at a time will currently be recorded!
 
 - Once you finished a Recording, close the program with `ESC`
 
-- If you want to take further Recording you should rename the `rec_vars.npy` and `recording.npy` files in the Directory.
+- If you want to take further Recordings you should rename the `rec_vars.npy` and `recording.npy` files in the Directory.
 
 - Best practice would be to append the filename with: `_[#NO. OF FRACTAL]_[#NO. OF RECORDING].npy`.  
   **And to place them into a separate folder!**
 
-- Once you Recorded every Camerapath, you can now Render the Scenes you have taken!
+- Once you recorded every Camerapath, you can now Render the Scenes you have taken!
 
 ## Rendering
 
@@ -70,10 +70,10 @@ The Fractals you can change with the keyvars are already animated.
 
 - Select the Fractal you originally rendered (Press a Number between 1 and 8)
 
-- Press P
+- Press `P`
 
-- Wait for the Renderer to Finish. The Program closes automatically
+- Wait for the Renderer to Finish. The Program closes automatically.
 
-- The rendered Images will be saved to `./playback`. Save these images somewhere safe! When Rendering a new set of images the previous ones get overwritten. The First two Images are currently not usable.
+- The rendered Images will be saved to `./playback`. Save these images somewhere safe! **When Rendering a new set of images the previous ones get overwritten.** The First two Images are currently not usable.
 
-- Delete the Recording Files in the current directory, and repeat the process again until everything is rendered.
+- Delete the two camera path files in the current directory, and repeat the process again until everything is rendered.

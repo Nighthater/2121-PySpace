@@ -12,14 +12,9 @@ pip install -r requirements.txt
 ```
 - Wait for the command to complete (~30s)
 
-## Usage
+# Usage
 
-- Launch Run.bat  
-
-- Press a Number between 1 and 8 to select a Fractal to view.  
-##### NOTE: You can only select the Fractal at startup.
-
-- Usable Keys are listed below:  
+There are two batchfiles to use. `Run Recorder.bat` and `Run Renderer.bat`. They are functionally the Same program, just running in different screen resolutions.
 
 | Keys | Action|
 |--|--|
@@ -32,7 +27,6 @@ pip install -r requirements.txt
 | C | Screenshot |
 | Esc | End Program |
 
-### Keyvars
 
 Keyvars affect the Shape of the Fractal. Not every Keyvar affects the fractal, try to experiment a bit.  
 The Fractals you can change with the keyvars are already animated.  
@@ -46,17 +40,40 @@ The Fractals you can change with the keyvars are already animated.
 |Numpad 8 & Numpad 5| Change Keyvar 4|
 |Numpad 9 & Numpad 6| Change Keyvar 5|
 |Left Shift| Decrase Change by 10|
-|Right Shift| Increase Change by 10|
+|Right Shift| Increase Change by 10
 
-## Render
+# Workflow 
+## Recording
 
-- After Recording a Camera Path and Rendering it, all Images are placed in the playback folder.  
-- The First two Images are currently not usable.  
-- When Rendering a new set of images the previous ones get overwritten.  
+- Launch `Run Recorder.bat`
 
-## Videos
-Overview: https://youtu.be/svLzmFuSBhk
+- Press a Number between 1 and 8 to select a Fractal to view.  
+##### NOTE: You can only select the Fractal at startup.
 
-Examples: https://youtu.be/N8WWodGk9-g
+- Position you camera however you want, press `SPACE` to record your camera movement and `SPACE` to stop recording
+##### NOTE: Only one Recording at a time will currently be recorded! More to that below.
 
-ODS Demo: https://youtu.be/yJyp7zEGKaU
+- Once you finished a Recording, close the program with `ESC`
+
+- If you want to take further Recording you should rename the `rec_vars.npy` and `recording.npy` files in the Directory.
+
+- Best practice would be to append the filename with: `_[#NO. OF FRACTAL]_[#NO. OF RECORDING].npy`.  
+  **And to place them into a separate folder!**
+
+- Once you Recorded every Camerapath, you can now Render the Scenes you have taken!
+
+## Rendering
+
+- Copy and rename two corresponding camera path files back to `rec_vars.npy` and `recording.npy` in the main directory.
+
+- Launch `Run Renderer.bat`
+
+- Select the Fractal you originally rendered (Press a Number between 1 and 8)
+
+- Press P
+
+- Wait for the Renderer to Finish. The Program closes automatically
+
+- The rendered Images will be saved to `./playback`. Save these images somewhere safe! When Rendering a new set of images the previous ones get overwritten. The First two Images are currently not usable.
+
+- Delete the Recording Files in the current directory, and repeat the process again until everything is rendered.

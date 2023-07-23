@@ -31,10 +31,10 @@ os.environ['SDL_VIDEO_FULLSCREEN'] = '1'
 #Size of the window and rendering
 #win_size = (1280, 720)
 #win_size = (2560, 1440)
-win_size = (3840, 2160)
+win_size = (3996, 1816)
 
-render_width = 3840
-render_height = 2160
+render_width = 3996
+render_height = 1816
 
 #Maximum frames per second
 max_fps = 24

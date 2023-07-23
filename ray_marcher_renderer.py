@@ -24,14 +24,14 @@ import time
 
 import os
 import ctypes
-#ctypes.windll.user32.SetProcessDPIAware()
-#os.environ['SDL_VIDEO_FULLSCREEN'] = '1'
-os.environ['SDL_VIDEO_CENTERED'] = '1'
+ctypes.windll.user32.SetProcessDPIAware()
+os.environ['SDL_VIDEO_FULLSCREEN'] = '1'
+#os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 #Size of the window and rendering
-win_size = (1280, 720)
+#win_size = (1280, 720)
 #win_size = (2560, 1440)
-#win_size = (3840, 2160)
+win_size = (3840, 2160)
 
 render_width = 3840
 render_height = 2160
